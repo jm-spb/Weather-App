@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/4/materia/bootstrap.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"
+    ></script>
+    <script defer src="/storage.js"></script>
+    <script defer src="/weather.js"></script>
+    <script defer src="/ui.js"></script>
+    <script defer src="/app.js"></script>
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto text-center bg-primary mt-5 p-5 rounded">
+          <h1 id="w-location" class="text-white"></h1>
+          <hr />
+          <h1 id="w-temp" class="text-white"></h1>
+          <h5 id="w-feels-like" class="text-secondary"></h5>
+          <img id="w-icon" />
+          <h3 id="w-desc" class="text-dark"></h3>
+          <ul id="w-details" class="list-group mt-3">
+            <li id="w-humidity" class="list-group-item"></li>
+            <li id="w-pressure" class="list-group-item"></li>
+            <li id="w-wind" class="list-group-item"></li>
+            <li id="w-sunrise" class="list-group-item"></li>
+            <li id="w-sunset" class="list-group-item"></li>
+          </ul>
+          <hr />
+          <button
+            type="button"
+            class="btn btn-warning"
+            data-bs-toggle="modal"
+            data-bs-target="#locationModal"
+          >
+            Выбрать город
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="locationModal"
+      tabindex="-1"
+      aria-labelledby="locationModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="localModalLabel">Выбрать город</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="w-form">
+              <div class="form-group">
+                <label for="city">Город</label>
+                <input type="text" id="city" class="form-control" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Закрыть
+            </button>
+            <button id="w-change-btn" type="button" class="btn btn-primary">
+              Сохранить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
