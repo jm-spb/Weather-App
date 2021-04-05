@@ -12,18 +12,14 @@ document.addEventListener('DOMContentLoaded', getWeatherOnDomLoaded);
 // Change location
 document.getElementById('w-change-btn').addEventListener('click', (e) => {
   const city = document.getElementById('city').value;
+
   weather.changeLocation(city);
 
-  // Set location in Local Storage
-  storage.setLocationData(city);
-
   getWeatherOnDomLoaded();
+
   e.preventDefault();
 });
 
 function getWeatherOnDomLoaded() {
-  weather
-    .getWeatherFromApi()
-    .then((result) => ui.paint(result))
-    .catch((err) => console.log(err));
+  weather.getWeatherFromApi().then((result) => ui.paint(result));
 }

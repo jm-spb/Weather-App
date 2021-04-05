@@ -14,9 +14,6 @@ class UI {
   }
 
   paint(weather) {
-    document
-      .getElementById('w-change-btn')
-      .setAttribute('data-bs-dismiss', 'modal');
     this.location.textContent = weather.name;
     this.desc.textContent = weather.weather[0].description;
     this.temp.innerHTML = `<h1 class="display-3">${weather.main.temp.toFixed(
@@ -36,12 +33,12 @@ class UI {
 
     this.wind.textContent = `Скорость ветра: ${weather.wind.speed} м/с`;
 
-    // Convert sunrise  and sinset time (in unix format) to local time
-    this.sunrise.textContent = `Восход солнца: ${new Date(
-      weather.sys.sunrise * 1000
-    ).toLocaleTimeString()}`;
-    this.sunset.textContent = `Заход солнца: ${new Date(
-      weather.sys.sunset * 1000
-    ).toLocaleTimeString()}`;
+    // Convert sunrise  and sunset time (in unix format) to local time
+    const sunriseHours = new Date(weather.sys.sunrise * 1000).getHours();
+    const sunriseMinutes = new Date(weather.sys.sunrise * 1000).getMinutes();
+    this.sunrise.textContent = `Восход солнца: ${sunriseHours}:${sunriseMinutes}`;
+    const sunsetHours = new Date(weather.sys.sunset * 1000).getHours();
+    const sunsetMinutes = new Date(weather.sys.sunset * 1000).getMinutes();
+    this.sunset.textContent = `Заход солнца: ${sunsetHours}:${sunsetMinutes}`;
   }
 }
