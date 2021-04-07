@@ -11,7 +11,7 @@ class Weather {
 
     // Handle invalid cities
     if (response.status !== 200) {
-      console.log('error');
+      UI.showAlert();
     }
 
     if (response.status === 200) {
@@ -21,6 +21,10 @@ class Weather {
       if (city !== '') {
         // Save in Local Storage only valid cities
         storage.setLocationData(city);
+
+        // Replace alert message with default div
+        const checkInput = document.querySelector('.check-input');
+        checkInput.innerHTML = `<input type="text" class="form-control" id="city">`;
 
         // Hide modal window only when valid cities typed
         // Using Bootstrap docs

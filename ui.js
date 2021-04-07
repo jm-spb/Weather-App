@@ -41,4 +41,12 @@ class UI {
     const sunsetMinutes = new Date(weather.sys.sunset * 1000).getMinutes();
     this.sunset.textContent = `Заход солнца: ${sunsetHours}:${sunsetMinutes}`;
   }
+
+  static showAlert() {
+    const checkInput = document.querySelector('.check-input');
+    checkInput.innerHTML = ` 
+    <input type="text" class="form-control is-invalid" id="city">
+    <div class="invalid-feedback">Пожалуйста, правильно введите город</div>
+    `;
+  }
 }
