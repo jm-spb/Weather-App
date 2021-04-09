@@ -36,10 +36,10 @@ class UI {
     // Convert sunrise  and sunset time (in unix format) to local time
     const sunriseHours = new Date(weather.sys.sunrise * 1000).getHours();
     const sunriseMinutes = new Date(weather.sys.sunrise * 1000).getMinutes();
-    this.sunrise.textContent = `Восход солнца: ${sunriseHours}:${sunriseMinutes}`;
+    this.sunrise.textContent = `Восход (местное время): ${sunriseHours}:${sunriseMinutes}`;
     const sunsetHours = new Date(weather.sys.sunset * 1000).getHours();
     const sunsetMinutes = new Date(weather.sys.sunset * 1000).getMinutes();
-    this.sunset.textContent = `Заход солнца: ${sunsetHours}:${sunsetMinutes}`;
+    this.sunset.textContent = `Заход (местное время): ${sunsetHours}:${sunsetMinutes}`;
   }
 
   static showAlert() {

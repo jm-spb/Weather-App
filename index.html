@@ -39,6 +39,7 @@
           </ul>
           <hr />
           <button
+            id="choose-city"
             type="button"
             class="btn btn-warning"
             data-bs-toggle="modal"
@@ -51,6 +52,7 @@
     </div>
     <!-- Modal -->
     <div
+      style="overflow-y: scroll"
       class="modal fade"
       id="locationModal"
       tabindex="-1"
@@ -75,6 +77,7 @@
                 <div class="check-input">
                   <input type="text" id="city" class="form-control" />
                 </div>
+                <ul class="collection list-group"></ul>
               </div>
             </form>
           </div>
