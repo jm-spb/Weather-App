@@ -64,4 +64,12 @@ class UI {
     <div class="invalid-feedback">Пожалуйста, правильно введите город</div>
     `;
   }
+
+  static showSaveMsg() {
+    const checkInput = document.querySelector('.check-input');
+    checkInput.innerHTML = ` 
+    <input type="text" class="form-control is-valid" id="city">
+    <div class="valid-feedback">Город сохранён, нажмите ЗАКРЫТЬ для просмотра</div>
+    `;
+  }
 }

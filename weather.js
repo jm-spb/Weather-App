@@ -26,11 +26,16 @@ class Weather {
         const checkInput = document.querySelector('.check-input');
         checkInput.innerHTML = `<input type="text" class="form-control" id="city">`;
 
-        // Hide modal window only when valid cities typed
-        // Using Bootstrap docs
-        const myModalEl = document.getElementById('locationModal');
-        const modal = bootstrap.Modal.getInstance(myModalEl);
-        modal.hide();
+        // Handle different behavior in Firefox
+        if (navigator.userAgent.indexOf('Firefox') !== -1) {
+          UI.showSaveMsg();
+        } else {
+          // Hide modal window only when valid cities typed
+          // Using Bootstrap docs
+          const myModalEl = document.getElementById('locationModal');
+          const modal = bootstrap.Modal.getInstance(myModalEl);
+          modal.hide();
+        }
       }
 
       return responseData;
