@@ -34,11 +34,26 @@ class UI {
     this.wind.textContent = `Скорость ветра: ${weather.wind.speed} м/с`;
 
     // Convert sunrise  and sunset time (in unix format) to local time
-    const sunriseHours = new Date(weather.sys.sunrise * 1000).getHours();
-    const sunriseMinutes = new Date(weather.sys.sunrise * 1000).getMinutes();
+    // Sunrise time
+    let sunriseHours = new Date(weather.sys.sunrise * 1000).getHours();
+    let sunriseMinutes = new Date(weather.sys.sunrise * 1000).getMinutes();
+    if (sunriseHours.toString().length === 1) {
+      sunriseHours = `0${sunriseHours}`;
+    }
+    if (sunriseMinutes.toString().length === 1) {
+      sunriseMinutes = `0${sunriseMinutes}`;
+    }
     this.sunrise.textContent = `Восход (местное время): ${sunriseHours}:${sunriseMinutes}`;
-    const sunsetHours = new Date(weather.sys.sunset * 1000).getHours();
-    const sunsetMinutes = new Date(weather.sys.sunset * 1000).getMinutes();
+
+    // Sunset time
+    let sunsetHours = new Date(weather.sys.sunset * 1000).getHours();
+    let sunsetMinutes = new Date(weather.sys.sunset * 1000).getMinutes();
+    if (sunsetHours.toString().length === 1) {
+      sunsetHours = `0${sunsetHours}`;
+    }
+    if (sunsetMinutes.toString().length === 1) {
+      sunsetMinutes = `0${sunsetMinutes}`;
+    }
     this.sunset.textContent = `Заход (местное время): ${sunsetHours}:${sunsetMinutes}`;
   }
 
