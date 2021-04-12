@@ -11,66 +11,69 @@ const filter = document.querySelector('#city');
 // Get weather on DOM load
 document.addEventListener('DOMContentLoaded', getWeatherOnDomLoaded);
 
-// Fetching rus cities list
-function fetching() {
-  fetch(
-    'https://gist.githubusercontent.com/jm-spb/75fbab35a9188ac43d22cfef4b2ad27e/raw/e5c21855ac61256b3d2c6130b6ee8c7601539641/rusCities'
-  ).then(async (response) => {
+// Fetching rus cities list and save in array only city Names
+const citiesNamesArray = fetch(
+  'https://gist.githubusercontent.com/jm-spb/75fbab35a9188ac43d22cfef4b2ad27e/raw/e5c21855ac61256b3d2c6130b6ee8c7601539641/rusCities'
+)
+  .then((response) => {
     if (response.status !== 200) {
       return;
     }
-    const data = await response.json();
+    return response.json();
+  })
+  .then((result) => {
+    let citiesArr = [];
+    result.forEach((e) => {
+      citiesArr.push(e.city);
+    });
+    return citiesArr;
+  });
 
-    let output = '';
-    data.forEach((e) => {
-      output += `<li id="list" style="display:none"><a href="#" class="list-group-item list-group-item-action">${e.city}</a></li>`;
+filter.addEventListener('keyup', typeHelper);
+
+function typeHelper(typedCity) {
+  const inputText = typedCity.target.value.toLowerCase();
+  citiesNamesArray.then((cityInArray) => {
+    let outputList = '';
+    let matchedCities = [];
+
+    // Loop through return array from Promise, and save in new array only matched cities with input type
+    cityInArray.forEach((city) => {
+      if (
+        city.toLowerCase().indexOf(inputText) !== -1 &&
+        typedCity.target.value !== '' &&
+        filter.value.length > 1
+      ) {
+        matchedCities.push(city);
+      }
     });
 
-    ul.innerHTML = output;
+    // Limit render cities list
+    matchedCities.length = 5;
+    matchedCities.forEach((city) => {
+      outputList += `<li class="list-group"><a href="#" class="list-group-item list-group-item-action">${city}</a></li>`;
+    });
+    ul.innerHTML = outputList;
+    getWeatherOnCityClick();
+  });
+}
 
-    // Copy city name to input field
-    ul.childNodes.forEach((li) => {
-      li.addEventListener('click', (e) => {
-        filter.value = li.innerText;
-        storage.setLocationData(li.innerText);
-        weather.changeLocation(li.innerText);
-
-        getWeatherOnDomLoaded();
-      });
+// Copy city name to input field and invoke getWeather function on click from each city in list
+function getWeatherOnCityClick() {
+  ul.childNodes.forEach((li) => {
+    li.addEventListener('click', (e) => {
+      filter.value = li.innerText;
+      storage.setLocationData(li.innerText);
+      weather.changeLocation(li.innerText);
+      getWeatherOnDomLoaded();
     });
   });
 }
 
-// Type helper
-
-filter.addEventListener('keyup', (typedCity) => {
-  const inputText = typedCity.target.value.toLowerCase();
-
-  ul.childNodes.forEach((li) => {
-    const cityName = li.innerText;
-
-    if (
-      cityName.toLowerCase().indexOf(inputText) !== -1 &&
-      typedCity.target.value !== '' &&
-      filter.value.length > 1
-    ) {
-      li.style.display = 'block';
-    } else {
-      li.style.display = 'none';
-    }
-  });
-});
-
-document.querySelector('#choose-city').addEventListener('click', (e) => {
-  fetching();
-});
-
 // Change location
 document.getElementById('w-change-btn').addEventListener('click', (e) => {
   const city = document.getElementById('city').value;
-
   weather.changeLocation(city);
-
   getWeatherOnDomLoaded();
 });
 
