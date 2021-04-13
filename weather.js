@@ -16,15 +16,14 @@ class Weather {
 
     if (response.status === 200) {
       const responseData = await response.json();
-      const city = document.getElementById('city').value;
 
-      if (city !== '') {
+      if (city.value !== '') {
         // Save in Local Storage only valid cities
-        storage.setLocationData(city);
+        storage.setLocationData(city.value);
 
         // Replace alert message with default div
         const checkInput = document.querySelector('.check-input');
-        checkInput.innerHTML = `<input type="text" class="form-control" id="city">`;
+        checkInput.innerHTML = `<input type="text" id="city" class="form-control" />`;
 
         // Handle different behavior in Firefox
         if (navigator.userAgent.indexOf('Firefox') !== -1) {

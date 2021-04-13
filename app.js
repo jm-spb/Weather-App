@@ -6,7 +6,7 @@ const weatherLocation = storage.getLocationData();
 const weather = new Weather(weatherLocation.city);
 const ui = new UI();
 const ul = document.querySelector('.collection');
-const filter = document.querySelector('#city');
+const inputCity = document.querySelector('#city');
 
 // Get weather on DOM load
 document.addEventListener('DOMContentLoaded', getWeatherOnDomLoaded);
@@ -29,7 +29,7 @@ const citiesNamesArray = fetch(
     return citiesArr;
   });
 
-filter.addEventListener('keyup', typeHelper);
+inputCity.addEventListener('keyup', typeHelper);
 
 function typeHelper(typedCity) {
   const inputText = typedCity.target.value.toLowerCase();
@@ -42,7 +42,7 @@ function typeHelper(typedCity) {
       if (
         city.toLowerCase().indexOf(inputText) !== -1 &&
         typedCity.target.value !== '' &&
-        filter.value.length > 1
+        typedCity.target.value.length > 1
       ) {
         matchedCities.push(city);
       }
@@ -62,19 +62,29 @@ function typeHelper(typedCity) {
 function getWeatherOnCityClick() {
   ul.childNodes.forEach((li) => {
     li.addEventListener('click', (e) => {
-      filter.value = li.innerText;
-      storage.setLocationData(li.innerText);
-      weather.changeLocation(li.innerText);
+      inputCity.value = li.innerText;
+      storage.setLocationData(inputCity.value);
+      weather.changeLocation(inputCity.value);
       getWeatherOnDomLoaded();
+      inputCity.value = '';
+
+      // Hide modal window
+      const myModalEl = document.getElementById('locationModal');
+      const modal = bootstrap.Modal.getInstance(myModalEl);
+      modal.hide();
+
+      // Clear output List
+      ul.innerHTML = '';
     });
   });
 }
 
 // Change location
 document.getElementById('w-change-btn').addEventListener('click', (e) => {
-  const city = document.getElementById('city').value;
-  weather.changeLocation(city);
+  weather.changeLocation(city.value);
   getWeatherOnDomLoaded();
+
+  ul.innerHTML = '';
 });
 
 function getWeatherOnDomLoaded() {

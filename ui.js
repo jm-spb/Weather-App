@@ -35,26 +35,34 @@ class UI {
 
     // Convert sunrise  and sunset time (in unix format) to local time
     // Sunrise time
-    let sunriseHours = new Date(weather.sys.sunrise * 1000).getHours();
-    let sunriseMinutes = new Date(weather.sys.sunrise * 1000).getMinutes();
+    let sunriseHours = new Date(
+      (weather.sys.sunrise + weather.timezone) * 1000
+    ).getUTCHours();
+    let sunriseMinutes = new Date(
+      (weather.sys.sunrise + weather.timezone) * 1000
+    ).getUTCMinutes();
     if (sunriseHours.toString().length === 1) {
       sunriseHours = `0${sunriseHours}`;
     }
     if (sunriseMinutes.toString().length === 1) {
       sunriseMinutes = `0${sunriseMinutes}`;
     }
-    this.sunrise.textContent = `Восход (местное время): ${sunriseHours}:${sunriseMinutes}`;
+    this.sunrise.textContent = `Восход: ${sunriseHours}:${sunriseMinutes}`;
 
     // Sunset time
-    let sunsetHours = new Date(weather.sys.sunset * 1000).getHours();
-    let sunsetMinutes = new Date(weather.sys.sunset * 1000).getMinutes();
+    let sunsetHours = new Date(
+      (weather.sys.sunset + weather.timezone) * 1000
+    ).getUTCHours();
+    let sunsetMinutes = new Date(
+      (weather.sys.sunset + weather.timezone) * 1000
+    ).getUTCMinutes();
     if (sunsetHours.toString().length === 1) {
       sunsetHours = `0${sunsetHours}`;
     }
     if (sunsetMinutes.toString().length === 1) {
       sunsetMinutes = `0${sunsetMinutes}`;
     }
-    this.sunset.textContent = `Заход (местное время): ${sunsetHours}:${sunsetMinutes}`;
+    this.sunset.textContent = `Заход: ${sunsetHours}:${sunsetMinutes}`;
   }
 
   static showAlert() {
